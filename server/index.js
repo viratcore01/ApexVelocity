@@ -15,14 +15,28 @@ const app = express();
 const port = Number(process.env.PORT || 3001);
 const jwtSecret = process.env.JWT_SECRET || "dev-only-secret";
 const adminEmail = process.env.ADMIN_EMAIL || "viratcore01@gmail.com";
-const allowedOrigin = process.env.FRONTEND_ORIGIN || "http://localhost:8080";
+const allowedOrigins = (process.env.FRONTEND_ORIGIN || "http://localhost:8080,http://localhost:5173")
+  .split(",")
+  .map((value) => value.trim())
+  .filter(Boolean);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const dataDir = path.join(__dirname, "data");
 const usersFile = path.join(dataDir, "users.json");
 
-app.use(cors({ origin: allowedOrigin, credentials: false }));
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+      callback(new Error(`Origin ${origin} is not allowed by CORS`));
+    },
+    credentials: false,
+  }),
+);
 app.use(express.json());
 
 const ensureStore = async () => {

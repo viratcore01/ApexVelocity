@@ -53,7 +53,9 @@ const ParticleCanvas = () => {
 };
 
 const Reserve = () => {
-  const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || "").replace(/\/$/, "");
+  const configuredApiBaseUrl = (import.meta.env.VITE_API_BASE_URL || "").replace(/\/$/, "");
+  const fallbackApiBaseUrl = `${window.location.protocol}//${window.location.hostname}:3001`;
+  const apiBaseUrl = configuredApiBaseUrl || fallbackApiBaseUrl;
   const { ref, isVisible } = useScrollAnimation();
   const { toast } = useToast();
   const [form, setForm] = useState({
@@ -79,8 +81,7 @@ const Reserve = () => {
 
       if (!response.ok) {
         throw new Error(
-          payload?.error ||
-            "Registration failed. If you are in local dev, run `npm run dev` to start frontend + backend.",
+          payload?.error || "Registration failed. Make sure backend is running on port 3001.",
         );
       }
 
@@ -94,9 +95,7 @@ const Reserve = () => {
       toast({
         title: "Could not submit",
         description:
-          error instanceof Error
-            ? error.message
-            : "Backend is unreachable. Start backend server or set VITE_API_BASE_URL.",
+          error instanceof Error ? error.message : "Backend unreachable. Check VITE_API_BASE_URL.",
         variant: "destructive",
       });
     } finally {

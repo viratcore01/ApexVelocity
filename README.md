@@ -54,6 +54,7 @@ Backend: `http://localhost:3001`
 If frontend and backend are on different hosts in production, set:
 
 - `VITE_API_BASE_URL=https://your-backend-domain`
+- `FRONTEND_ORIGIN=https://your-frontend-domain`
 
 ### Required environment variables
 
