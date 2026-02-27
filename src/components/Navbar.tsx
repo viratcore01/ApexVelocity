@@ -1,7 +1,20 @@
 import { useState, useEffect } from "react";
 
-const links = ["Home", "Strategy", "Features", "Cockpit", "Get Access"];
-const sectionIds = ["hero", "strategy", "features", "cockpit", "reserve"];
+const links = ["Home", "How It Works", "Technology", "Impact", "Get ApexPulse"];
+const sectionIds = ["hero", "howitworks", "technology", "impact", "reserve"];
+
+const PulseIcon = () => (
+  <svg width="20" height="16" viewBox="0 0 24 16" fill="none" className="inline-block ml-1">
+    <polyline
+      points="0,8 4,8 6,2 9,14 12,4 14,10 16,8 24,8"
+      stroke="hsl(20 100% 60%)"
+      strokeWidth="2"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -23,12 +36,11 @@ const Navbar = () => {
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "glass border-b border-border" : "bg-transparent"}`}>
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
-        <a href="#" className="font-display text-2xl tracking-wider text-foreground flex items-center gap-1">
-          APEX <span className="text-primary">VELOCITY</span>
-          <span className="text-primary text-lg">⚡</span>
+        <a href="#" className="font-display text-2xl tracking-wider text-foreground flex items-center gap-0">
+          APEX<span className="text-primary">PULSE</span>
+          <PulseIcon />
         </a>
 
-        {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
           {links.map((l, i) => (
             <button
@@ -48,7 +60,6 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Mobile hamburger */}
         <button
           className="md:hidden flex flex-col gap-1.5 p-2"
           onClick={() => setMobileOpen(!mobileOpen)}
@@ -59,7 +70,6 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile menu */}
       {mobileOpen && (
         <div className="md:hidden glass border-t border-border">
           <div className="flex flex-col p-6 gap-4">

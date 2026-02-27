@@ -36,7 +36,7 @@ const ParticleCanvas = () => {
         if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(355, 76%, 55%, ${p.o})`;
+        ctx.fillStyle = `hsla(20, 100%, 60%, ${p.o})`;
         ctx.fill();
       });
       raf = requestAnimationFrame(draw);
@@ -56,8 +56,7 @@ const Reserve = () => {
 
   return (
     <section id="reserve" ref={ref} className="relative py-24 md:py-32 overflow-hidden">
-      {/* Gradient bg */}
-      <div className="absolute inset-0 bg-gradient-to-b from-racing-dark to-background" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(20_100%_18%)] to-background" />
       <ParticleCanvas />
 
       <div className="relative z-10 container mx-auto px-6 text-center">
@@ -66,14 +65,14 @@ const Reserve = () => {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          ONLY <span className="text-primary">12</span> TEAM LICENSES REMAINING.
+          JOIN THE RIDERS WHO <span className="text-primary">CHOSE TO LIVE.</span>
         </h2>
         <p
           className={`font-body text-muted-foreground text-lg mb-12 transition-all duration-700 delay-200 ${
             isVisible ? "opacity-100" : "opacity-0"
           }`}
         >
-          Join the starting grid before the season locks.
+          First 500 units at launch price. No credit card needed.
         </p>
 
         <form
@@ -89,14 +88,23 @@ const Reserve = () => {
           />
           <input
             type="email"
-            placeholder="Team Email"
+            placeholder="Email"
             className="w-full px-4 py-3 bg-card border border-border rounded-sm font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
           />
+          <select
+            className="w-full px-4 py-3 bg-card border border-border rounded-sm font-body text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+          >
+            <option value="">Rider Type</option>
+            <option value="racer">Racer</option>
+            <option value="tourer">Tourer</option>
+            <option value="delivery">Delivery</option>
+            <option value="other">Other</option>
+          </select>
           <button
             type="submit"
-            className="w-full px-8 py-4 font-display text-lg tracking-wider bg-card border-2 border-primary text-primary rounded-sm hover:bg-primary hover:text-primary-foreground transition-all duration-300 glow-red-hover"
+            className="w-full px-8 py-4 font-display text-lg tracking-wider bg-card border-2 border-primary text-primary rounded-sm hover:bg-primary hover:text-primary-foreground transition-all duration-300 glow-orange-hover"
           >
-            CLAIM MY SEAT
+            SECURE MY APEXPULSE
           </button>
         </form>
       </div>

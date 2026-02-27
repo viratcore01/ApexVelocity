@@ -4,16 +4,16 @@ const Footer = () => (
       <div className="grid md:grid-cols-4 gap-12">
         <div>
           <h3 className="font-display text-2xl text-foreground tracking-wider">
-            APEX <span className="text-primary">VELOCITY</span> ⚡
+            APEX<span className="text-primary">PULSE</span>
           </h3>
           <p className="font-body text-sm text-muted-foreground mt-3 italic">
-            Precision. Power. Intelligence.
+            Detect. Alert. Protect.
           </p>
         </div>
 
         {[
-          { title: "PRODUCT", links: ["Strategy Engine", "Cockpit", "Pricing", "API Docs"] },
-          { title: "COMPANY", links: ["About", "Careers", "Press", "Contact"] },
+          { title: "PRODUCT", links: ["Helmet Sensor", "Wrist Band", "Mobile App", "Pricing"] },
+          { title: "SCIENCE", links: ["Research", "Clinical Trials", "Safety Standards", "Publications"] },
           { title: "CONNECT", links: ["Twitter/X", "Discord", "GitHub", "Newsletter"] },
         ].map((col) => (
           <div key={col.title}>
@@ -33,7 +33,7 @@ const Footer = () => (
 
       <div className="mt-12 pt-8 border-t border-border text-center">
         <p className="font-body text-xs text-muted-foreground">
-          © 2025 APEX VELOCITY. All rights reserved. Built for speed.
+          © 2025 APEXPULSE | Saving Riders at Every Speed
         </p>
       </div>
     </div>
