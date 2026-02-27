@@ -45,7 +45,7 @@ This project now includes an Express authentication backend in `server/index.js`
 ```sh
 npm i
 cp .env.example .env
-npm run dev:full
+npm run dev
 ```
 
 Frontend: `http://localhost:8080`  

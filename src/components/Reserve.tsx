@@ -80,7 +80,7 @@ const Reserve = () => {
       if (!response.ok) {
         throw new Error(
           payload?.error ||
-            "Registration failed. If you are in local dev, run `npm run dev:full` to start frontend + backend.",
+            "Registration failed. If you are in local dev, run `npm run dev` to start frontend + backend.",
         );
       }
 
