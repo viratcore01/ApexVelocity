@@ -1,5 +1,6 @@
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { useEffect, useRef } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { FormEvent, useEffect, useRef, useState } from "react";
 
 const ParticleCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -53,6 +54,47 @@ const ParticleCanvas = () => {
 
 const Reserve = () => {
   const { ref, isVisible } = useScrollAnimation();
+  const { toast } = useToast();
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    riderType: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const payload = await response.json();
+
+      if (!response.ok) {
+        throw new Error(payload?.error || "Registration failed");
+      }
+
+      localStorage.setItem("apex_auth_token", payload.token);
+      toast({
+        title: "Registration successful",
+        description: "You're in. We sent your request to the team.",
+      });
+      setForm({ name: "", email: "", password: "", riderType: "" });
+    } catch (error) {
+      toast({
+        title: "Could not submit",
+        description: error instanceof Error ? error.message : "Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section id="reserve" ref={ref} className="relative py-24 md:py-32 overflow-hidden">
@@ -76,7 +118,7 @@ const Reserve = () => {
         </p>
 
         <form
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={onSubmit}
           className={`max-w-md mx-auto space-y-4 transition-all duration-700 delay-400 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
@@ -84,14 +126,32 @@ const Reserve = () => {
           <input
             type="text"
             placeholder="Your Name"
+            value={form.name}
+            onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))}
+            required
             className="w-full px-4 py-3 bg-card border border-border rounded-sm font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
           />
           <input
             type="email"
             placeholder="Email"
+            value={form.email}
+            onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))}
+            required
+            className="w-full px-4 py-3 bg-card border border-border rounded-sm font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+          />
+          <input
+            type="password"
+            placeholder="Password (min 8 characters)"
+            value={form.password}
+            onChange={(e) => setForm((prev) => ({ ...prev, password: e.target.value }))}
+            minLength={8}
+            required
             className="w-full px-4 py-3 bg-card border border-border rounded-sm font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
           />
           <select
+            value={form.riderType}
+            onChange={(e) => setForm((prev) => ({ ...prev, riderType: e.target.value }))}
+            required
             className="w-full px-4 py-3 bg-card border border-border rounded-sm font-body text-muted-foreground focus:outline-none focus:border-primary transition-colors"
           >
             <option value="">Rider Type</option>
@@ -102,9 +162,10 @@ const Reserve = () => {
           </select>
           <button
             type="submit"
+            disabled={isSubmitting}
             className="w-full px-8 py-4 font-display text-lg tracking-wider bg-card border-2 border-primary text-primary rounded-sm hover:bg-primary hover:text-primary-foreground transition-all duration-300 glow-orange-hover"
           >
-            SECURE MY APEXPULSE
+            {isSubmitting ? "SUBMITTING..." : "SECURE MY APEXPULSE"}
           </button>
         </form>
       </div>

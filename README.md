@@ -36,6 +36,37 @@ npm i
 npm run dev
 ```
 
+## Authentication backend + admin email alerts
+
+This project now includes an Express authentication backend in `server/index.js`.
+
+### Run frontend + backend together
+
+```sh
+npm i
+cp .env.example .env
+npm run dev:full
+```
+
+Frontend: `http://localhost:8080`  
+Backend: `http://localhost:3001`
+
+### Required environment variables
+
+`ADMIN_EMAIL` defaults to `viratcore01@gmail.com`, but SMTP must be configured to deliver mail:
+
+- `SMTP_HOST`
+- `SMTP_PORT`
+- `SMTP_SECURE`
+- `SMTP_USER`
+- `SMTP_PASS`
+- `SMTP_FROM`
+
+Auth endpoints:
+
+- `POST /api/auth/register` (creates user, hashes password, sends admin email)
+- `POST /api/auth/login`
+
 **Edit a file directly in GitHub**
 
 - Navigate to the desired file(s).
