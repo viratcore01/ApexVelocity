@@ -2,17 +2,7 @@
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
-
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
+**URL**: [https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID](https://hh-ten-iota.vercel.app/)
 
 **Use your preferred IDE**
 
@@ -47,14 +37,6 @@ npm i
 cp .env.example .env
 npm run dev
 ```
-
-Frontend: `http://localhost:8080`  
-Backend: `http://localhost:3001`
-
-If frontend and backend are on different hosts in production, set:
-
-- `VITE_API_BASE_URL=https://your-backend-domain`
-- `FRONTEND_ORIGIN=https://your-frontend-domain`
 
 ### Required environment variables
 
@@ -96,11 +78,7 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
-## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
 
 Yes, you can!
 
