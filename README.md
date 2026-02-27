@@ -51,6 +51,10 @@ npm run dev:full
 Frontend: `http://localhost:8080`  
 Backend: `http://localhost:3001`
 
+If frontend and backend are on different hosts in production, set:
+
+- `VITE_API_BASE_URL=https://your-backend-domain`
+
 ### Required environment variables
 
 `ADMIN_EMAIL` defaults to `viratcore01@gmail.com`, but SMTP must be configured to deliver mail:

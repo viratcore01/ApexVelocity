@@ -53,6 +53,7 @@ const ParticleCanvas = () => {
 };
 
 const Reserve = () => {
+  const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || "").replace(/\/$/, "");
   const { ref, isVisible } = useScrollAnimation();
   const { toast } = useToast();
   const [form, setForm] = useState({
@@ -68,15 +69,19 @@ const Reserve = () => {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch("/api/auth/register", {
+      const response = await fetch(`${apiBaseUrl}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      const payload = await response.json();
+      const isJson = response.headers.get("content-type")?.includes("application/json");
+      const payload = isJson ? await response.json() : null;
 
       if (!response.ok) {
-        throw new Error(payload?.error || "Registration failed");
+        throw new Error(
+          payload?.error ||
+            "Registration failed. If you are in local dev, run `npm run dev:full` to start frontend + backend.",
+        );
       }
 
       localStorage.setItem("apex_auth_token", payload.token);
@@ -88,7 +93,10 @@ const Reserve = () => {
     } catch (error) {
       toast({
         title: "Could not submit",
-        description: error instanceof Error ? error.message : "Please try again.",
+        description:
+          error instanceof Error
+            ? error.message
+            : "Backend is unreachable. Start backend server or set VITE_API_BASE_URL.",
         variant: "destructive",
       });
     } finally {
